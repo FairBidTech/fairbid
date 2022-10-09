@@ -13,18 +13,9 @@ contract NftTransferVerifier {
 
     /// @dev Executes an ERC721 token transfer with replay protection and expiry
     /// @notice This should be executed by metaDelegateCall() with the following signed params
-    /// @param bitmapIndex The index of the replay bit's bytes32 slot
-    /// @param bit The value of the replay bit
-    /// @param token The token to transfer
-    /// @param from The sender of the transfer
-    /// @param to The recipient of the transfer
-    function nftTransfer(
-        uint256 bitmapIndex,
-        uint256 bit,
-        address token,
-        address from,
-        address to
-    ) external {
+    /// @param amount The index of the replay bit's bytes32 slot
+    /// @param tokenid The value of the replay bit
+    function nftTransfer(uint256 amount, uint256 tokenid) external {
         // Bit.useBit(bitmapIndex, bit);
         // TransferHelper.safeTransferFrom(token, from, to);
     }

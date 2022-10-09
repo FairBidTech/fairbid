@@ -22,12 +22,13 @@ contract TokenHolder is IERC721Receiver {
     }
 
     // bidder isx EOA to this contract
-    function transferTokenNFT(uint256 bid_amount, uint256 tokenId)
-        public
-        payable
-    {
-        payable(msg.sender).transfer(bid_amount);
-        tt.transferFrom(address(this), msg.sender, tokenId);
+    function transferTokenNFT(
+        uint256 bid_amount,
+        uint256 tokenId,
+        address to
+    ) public payable {
+        payable(to).transfer(bid_amount);
+        // tt.transferFrom(address(this), to, tokenId);
     }
 
     function onERC721Received(

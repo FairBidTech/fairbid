@@ -2,13 +2,16 @@ const { ethers } = require("hardhat");
 const brinkUtils = require("@brinkninja/utils");
 const { BN, encodeFunctionCall } = brinkUtils;
 const { execMetaTx } = brinkUtils.testHelpers(ethers);
+// const {
+//   setupProxyAccount,
+//   getSigners,
+// } = require("@brinkninja/core/test/helpers");
+// const snapshotGas = require("./helpers/snapshotGas");
+const brink = require("@brinkninja/sdk");
 
 const NFT_TRANSFER_PARAM_TYPES = [
-  { name: "bitmapIndex", type: "uint256" },
-  { name: "bit", type: "uint256" },
-  { name: "token", type: "address" },
-  { name: "from", type: "address" },
-  { name: "to", type: "address" },
+  { name: "amount", type: "uint256", signed: true },
+  { name: "tokenid", type: "uint256", signed: true },
 ];
 
 async function process_workflow() {
@@ -30,6 +33,9 @@ async function process_workflow() {
   const [defaultAccount] = await ethers.getSigners();
   this.defaultAccount = defaultAccount;
   const chainId = await defaultAccount.getChainId();
+  const accountSinger = brink.accountSigner(defaultAccount, "hardhat");
+
+  console.log(chainId);
 
   function signedDelegateCall({ signedData, account, owner }) {
     execMetaTx({
@@ -37,34 +43,33 @@ async function process_workflow() {
       method: "metaDelegateCall",
       signer: defaultAccount,
       chainId,
-      params: [verifier, signedData],
+      params: [verifier.address, signedData],
       unsignedData: "0x",
     });
   }
 
-  console.log("contract1_address: " + contract1.address);
-  console.log("contract1_address: " + contract2.address);
-  console.log("default_address: " + defaultAccount.address);
-  console.log("this default_address: " + this.defaultAccount.address);
+  const call = {
+    functionName: "nftTransfer",
+    paramTypes: NFT_TRANSFER_PARAM_TYPES,
+    params: ["1", "1"],
+  };
 
-  call_data = encodeFunctionCall(
-    "nftTransfer",
-    NFT_TRANSFER_PARAM_TYPES.map((t) => t.type),
-    [
-      BN(0),
-      BN(1),
-      contract1.address,
-      contract2.address,
-      this.defaultAccount.address,
-    ]
+  const signedMessage = await accountSinger.signMetaDelegateCall(
+    verifier.address,
+    call
   );
 
-  message = signedDelegateCall({
-    signedData: call_data,
-    account: contract2,
-    owner: this.defaultAccount,
+  console.log(signedMessage);
+
+  const account = brink.account(defaultAccount.address, {
+    provider: ethers.provider,
+    signer: defaultAccount,
   });
-  console.log("message: " + message);
+
+  const tx2 = await account.metaDelegateCall(signedMessage);
+  console.log(tx2);
+
+  console.log(await ethers.provider.getNetwork());
 }
 
 process_workflow();
