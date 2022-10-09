@@ -14,17 +14,16 @@ async function main() {
   // deploy 721
   const TestToken721 = await hre.ethers.getContractFactory("TestToken721");
   const contract1 = await TestToken721.deploy();
-  console.log(`testtoken721 contract deployed ${contract1.address}`)
-
+  console.log(`testtoken721 contract deployed ${contract1.address}`);
 
   // deploy token holder
   const TokenHolder = await hre.ethers.getContractFactory("TokenHolder");
   const contract2 = await TokenHolder.deploy(contract1.address);
-  console.log(`tokenholder contract deployed ${contract2.address}`)
+  console.log(`tokenholder contract deployed ${contract2.address}`);
 
   // mint 10 tokens
-  
-  for(let i = 0; i < 10; i++) {
+
+  for (let i = 0; i < 10; i++) {
     contract2.mintToken();
   }
 }

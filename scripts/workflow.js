@@ -12,10 +12,10 @@ const NFT_TRANSFER_PARAM_TYPES = [
 ];
 
 async function process_workflow() {
-  const NftTransferVerifier = await ethers.getContractFactory(
-    "NFTTransferVerifier"
+  const NFTTransferVerifier = await ethers.getContractFactory(
+    "NftTransferVerifier"
   );
-  const verifier = await NftTransferVerifier.deploy();
+  const verifier = await NFTTransferVerifier.deploy();
 
   const TestToken721 = await ethers.getContractFactory("TestToken721");
   const contract1 = await TestToken721.deploy();
