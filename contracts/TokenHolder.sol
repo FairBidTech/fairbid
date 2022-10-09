@@ -1,13 +1,11 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.4;
+pragma solidity ^0.8.14;
 
 import "./TestToken721.sol";
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/token/ERC721/IERC721Receiver.sol";
 
-
 import "hardhat/console.sol";
-
 
 contract TokenHolder is IERC721Receiver {
     TestToken721 tt;
@@ -15,7 +13,6 @@ contract TokenHolder is IERC721Receiver {
     constructor(address testtoken721) {
         tt = TestToken721(testtoken721);
     }
-
 
     //event randomText(string text);
 
@@ -33,8 +30,12 @@ contract TokenHolder is IERC721Receiver {
         tt.transferFrom(address(this), msg.sender, tokenId);
     }
 
-
-    function onERC721Received(address, address, uint256, bytes memory) public virtual override returns (bytes4) {
+    function onERC721Received(
+        address,
+        address,
+        uint256,
+        bytes memory
+    ) public virtual override returns (bytes4) {
         return this.onERC721Received.selector;
     }
 }

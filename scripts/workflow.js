@@ -12,6 +12,11 @@ const NFT_TRANSFER_PARAM_TYPES = [
 ];
 
 async function process_workflow() {
+  const NftTransferVerifier = await ethers.getContractFactory(
+    "NFTTransferVerifier"
+  );
+  const verifier = await NftTransferVerifier.deploy();
+
   const TestToken721 = await ethers.getContractFactory("TestToken721");
   const contract1 = await TestToken721.deploy();
 
@@ -32,15 +37,26 @@ async function process_workflow() {
       method: "metaDelegateCall",
       signer: defaultAccount,
       chainId,
-      params: [signedData],
+      params: [verifier, signedData],
       unsignedData: "0x",
     });
   }
 
+  console.log("contract1_address: " + contract1.address);
+  console.log("contract1_address: " + contract2.address);
+  console.log("default_address: " + defaultAccount.address);
+  console.log("this default_address: " + this.defaultAccount.address);
+
   call_data = encodeFunctionCall(
     "nftTransfer",
     NFT_TRANSFER_PARAM_TYPES.map((t) => t.type),
-    [BN(0), BN(1), contract1.address, contract2.address, defaultAccount.address]
+    [
+      BN(0),
+      BN(1),
+      contract1.address,
+      contract2.address,
+      this.defaultAccount.address,
+    ]
   );
 
   message = signedDelegateCall({
@@ -48,7 +64,7 @@ async function process_workflow() {
     account: contract2,
     owner: this.defaultAccount,
   });
-  console.log(message);
+  console.log("message: " + message);
 }
 
 process_workflow();

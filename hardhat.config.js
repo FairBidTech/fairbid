@@ -1,15 +1,22 @@
-require("@nomicfoundation/hardhat-toolbox");
+require("dotenv").config();
 
-/** @type import('hardhat/config').HardhatUserConfig */
+// You need to export an object to set up your config
+// Go to https://hardhat.org/config/ to learn more
+
+/**
+ * @type import('hardhat/config').HardhatUserConfig
+ */
 module.exports = {
-  solidity: "0.8.17",
+  solidity: "0.8.14",
   networks: {
-    testnet: {
-      url: "https://goerli.infura.io/v3/8996f3394e1d4f54b78bb8e243e6c85c",
+    goerli: {
+      url: `https://goerli.infura.io/v3/` + process.env.GORELI_API_KEY,
       chainId: 5,
-      accounts: [
-        "0xdf57089febbacf7ba0bc227dafbffa9fc08a93fdc68e1e42411a14efcf23656e",
-      ],
+    },
+    hardhat: {
+      forking: {
+        url: `https://goerli.infura.io/v3/` + process.env.GORELI_API_KEY,
+      },
     },
   },
 };
