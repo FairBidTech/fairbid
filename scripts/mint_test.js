@@ -8,7 +8,10 @@ async function interate_mint() {
   //   console.log(owner, addr1);
   const TokenHolder = await hre.ethers.getContractFactory("TokenHolder");
   const contract = TokenHolder.attach(TokenHolder_address);
-  contract.mintToken();
+  for(let i = 0; i < 10; i++) {
+    contract.mintToken();
+    
+  }
 }
 
 interate_mint()
