@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.14;
+pragma solidity ^0.8.4;
 
 import "./TestToken721.sol";
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
@@ -16,19 +16,18 @@ contract TokenHolder is IERC721Receiver {
 
     //event randomText(string text);
 
-    function mintToken() public {
-        tt.safeMint();
-        //emit randomText("hello");
+    function mintToken(string memory swarmHash) public {
+        //consume the safe mint using a swarm address
+        tt.safeMint(swarmHash);
     }
 
     // bidder isx EOA to this contract
-    function transferTokenNFT(
-        uint256 bid_amount,
-        uint256 tokenId,
-        address to
-    ) public payable {
-        payable(to).transfer(bid_amount);
-        // tt.transferFrom(address(this), to, tokenId);
+    function transferTokenNFT(uint256 bid_amount, uint256 tokenId)
+        public
+        payable
+    {
+        payable(msg.sender).transfer(bid_amount);
+        tt.transferFrom(address(this), msg.sender, tokenId);
     }
 
     function onERC721Received(

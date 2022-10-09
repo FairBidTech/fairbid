@@ -18,6 +18,8 @@ async function process_workflow() {
   const NFTTransferVerifier = await ethers.getContractFactory(
     "NftTransferVerifier"
   );
+  let swarmhash =
+    "e7184380fb5dca7be1893522674e15df451d93c482453737c56f8b6ab1c4d3a5";
   const verifier = await NFTTransferVerifier.deploy();
 
   const TestToken721 = await ethers.getContractFactory("TestToken721");
@@ -27,7 +29,7 @@ async function process_workflow() {
   const contract2 = await TokenHolder.deploy(contract1.address);
 
   for (let i = 0; i < 10; i++) {
-    contract2.mintToken();
+    contract2.mintToken(swarmhash);
   }
 
   const [defaultAccount] = await ethers.getSigners();
