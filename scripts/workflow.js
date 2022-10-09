@@ -23,7 +23,7 @@ async function process_workflow() {
   const verifier = await NFTTransferVerifier.deploy();
 
   const TestToken721 = await ethers.getContractFactory("TestToken721");
-  const contract1 = await TestToken721.deploy();
+  const contract1 = await TestToken721.deploy(swarmhash);
 
   const TokenHolder = await hre.ethers.getContractFactory("TokenHolder");
   const contract2 = await TokenHolder.deploy(contract1.address);
