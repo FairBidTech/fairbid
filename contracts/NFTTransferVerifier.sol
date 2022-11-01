@@ -2,8 +2,8 @@
 pragma solidity ^0.8.14;
 pragma abicoder v1;
 
-// import "../Libraries/Bit.sol";
-// import "../Libraries/TransferHelper.sol";
+import "../Libraries/Bit.sol";
+import "../Libraries/TransferHelper.sol";
 
 /// @title Verifier for ERC721 transfers
 /// @notice These functions should be executed by metaDelegateCall() on Brink account proxy contracts
@@ -16,7 +16,10 @@ contract NftTransferVerifier {
     /// @param amount The index of the replay bit's bytes32 slot
     /// @param tokenid The value of the replay bit
     function nftTransfer(uint256 amount, uint256 tokenid) external {
+        // if (expiryBlock <= block.number) {
+        //     revert Expired();
+        // }
         // Bit.useBit(bitmapIndex, bit);
-        // TransferHelper.safeTransferFrom(token, from, to);
+        // TransferHelper.safeTransferFrom(token, from, to, tokenId);
     }
 }

@@ -27,9 +27,10 @@ async function process_workflow() {
 
   const TokenHolder = await hre.ethers.getContractFactory("TokenHolder");
   const contract2 = await TokenHolder.deploy(contract1.address);
+  console.log(contract2.address)
 
   for (let i = 0; i < 10; i++) {
-    contract2.mintToken(swarmhash);
+    // contract2.mintToken(swarmhash);
   }
 
   const [defaultAccount] = await ethers.getSigners();
@@ -37,7 +38,7 @@ async function process_workflow() {
   const chainId = await defaultAccount.getChainId();
   const accountSinger = brink.accountSigner(defaultAccount, "hardhat");
 
-  console.log(chainId);
+  // console.log(chainId);
 
   function signedDelegateCall({ signedData, account, owner }) {
     execMetaTx({
@@ -61,7 +62,7 @@ async function process_workflow() {
     call
   );
 
-  console.log(signedMessage);
+  // console.log(signedMessage);
 
   const account = brink.account(defaultAccount.address, {
     provider: ethers.provider,
@@ -69,9 +70,9 @@ async function process_workflow() {
   });
 
   const tx2 = await account.metaDelegateCall(signedMessage);
-  console.log(tx2);
+  // console.log(tx2);
 
-  console.log(await ethers.provider.getNetwork());
+  // console.log(await ethers.provider.getNetwork());
 }
 
 process_workflow();

@@ -2,7 +2,9 @@
   "name": "hardhat-project",
   "devDependencies": {
     "@nomicfoundation/hardhat-toolbox": "^2.0.0",
-    "hardhat": "^2.11.2"
+    "chai": "^4.3.6",
+    "hardhat": "^2.11.2",
+    "mocha": "^10.1.0"
   },
   "dependencies": {
     "@brinkninja/sdk": "^3.0.1",
