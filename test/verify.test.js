@@ -47,89 +47,95 @@ describe("Fairbid", function () {
     })
 
     describe("Deployment", function () {
-        it('Should deploy NFT verifier contract', async function() {
-            address = contracts[0].address
-            expect(address).to.be.string
-        })
 
-        it('Should deploy NFT contract', async function() {
-            address = contracts[1].address
-            expect(address).to.be.string
-        })
-
-        it('Should deploy NFT holder contract', async function() {
-            address = contracts[2].address
-            expect(address).to.be.string
-        })
-    })
-
-    describe("Pre-minting process", function() {
-        it('Should mint NFTs', async function() {
-            const [owner, otherAccount] = await ethers.getSigners();
-            id = contract2.connect(otherAccount).mintToken(swarmhash);
-            expect(1).to.not.be.null
-        })
-
-        it('Should not allow non-owner to mint NFTs', async function() {
-            expect(1).to.not.be.null
-        })
-
-        it('Should upload images to Swarm Network', async function() {
-            expect(1).to.not.be.null
-        })
-
-        it('Should upload json data to Swarm Network', async function() {
-            expect(1).to.not.be.null
-        })
-
-        it('Should transfer NFTs to holder contract', async function() {
-            expect(1).to.not.be.null
-        })
     })
 
     describe("Front-end", function () {
-        it('Should identify invalid messages', async function() {
-            expect(1).to.not.be.null
+        describe("Minting", function() {
+            it('Should deploy NFT verifier contract', async function() {
+                address = contracts[0].address
+                expect(address).to.be.string
+            })
+
+            it('Should deploy NFT contract', async function() {
+                address = contracts[1].address
+                expect(address).to.be.string
+            })
+
+            it('Should deploy NFT holder contract', async function() {
+                address = contracts[2].address
+                expect(address).to.be.string
+            })
+
+            it('Should mint NFTs', async function() {
+                const [owner, otherAccount] = await ethers.getSigners();
+                id = contract2.connect(otherAccount).mintToken(swarmhash);
+                expect(1).to.not.be.null
+            })
+
+            it('Should not allow non-owner to mint NFTs', async function() {
+                expect(1).to.not.be.null
+            })
+
+            it('Should upload images to Swarm Network', async function() {
+                expect(1).to.not.be.null
+            })
+
+            it('Should upload json data to Swarm Network', async function() {
+                expect(1).to.not.be.null
+            })
+
+            it('Should transfer NFTs to holder contract', async function() {
+                expect(1).to.not.be.null
+            })
         })
 
-        it('Should generate valid messages', async function() {
-            expect(1).to.not.be.null
-        })
+        describe("Messaging", function () {
+            it('Should identify invalid messages', async function() {
+                expect(1).to.not.be.null
+            })
 
-        it('Should upload valid message to Brink API', async function() {
-            expect(1).to.not.be.null
+            it('Should generate valid messages', async function() {
+                expect(1).to.not.be.null
+            })
+
+            it('Should upload valid message to Brink API', async function() {
+                expect(1).to.not.be.null
+            })
         })
     })
 
     describe("Back-end", function () {
-        it('Should download messages from Brink API', async function() {
-            expect(1).to.not.be.null
+        describe("Verifier", function () {
+            it('Should invalidate bids after auction ends', async function() {
+                expect(1).to.not.be.null
+            })
+
+            it('Should invalidate bids under reserve price', async function() {
+                expect(1).to.not.be.null
+            })
+
+            it('Should invalidate bids if bidder has insufficient funds', async function () {
+                expect(1).to.not.be.null
+            })
+
+            it('Should invalidate bids no NFTs are left', async function () {
+                expect(1).to.not.be.null
+            })
         })
 
-        it('Should process valid messages', async function() {
-            expect(1).to.not.be.null
-        })
+        describe("Bot", function () {
+            it('Should download messages from Brink API', async function() {
+                expect(1).to.not.be.null
+            })
 
-        it('Should identify an invalid message and emit error', async function () {
-            expect(1).to.not.be.null
-        })
-    })
+            it('Should process valid messages', async function() {
+                expect(1).to.not.be.null
+            })
 
-    describe("Auction", function() {
-        it('Should invalidate bids after bid end', async function() {
-            expect(1).to.not.be.null
-        })
-
-        it('Should invalidate bids under reserve price', async function() {
-            expect(1).to.not.be.null
-        })
-
-        it('Should invalidate bids if bidder has insufficient funds', async function () {
-            expect(1).to.not.be.null
-        })
-
-        it('Should invalidate bids no NFTs are left', async function () {
-            expect(1).to.not.be.null
+            it('Should identify an invalid message and emit error', async function () {
+                expect(1).to.not.be.null
+            })
         })
     })
 })
