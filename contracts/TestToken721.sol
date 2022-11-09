@@ -71,7 +71,7 @@ contract TestToken721 is ERC721 {
         swarmHash[tokenId] = _swarmRef;
         _safeMint(msg.sender, tokenId);
 
-        console.log("token minted %s", tokenId);
+        // console.log("token minted %s", tokenId);
         return tokenId;
     }
 }
